@@ -1,9 +1,9 @@
 ﻿// ***********************************************************************
 // Assembly         : PersianDateControls
-// Author           : a_nameghi
+// Author           : polfosol
 // Created          : 10-16-2019
 //
-// Last Modified By : a_nameghi
+// Last Modified By : polfosol
 // Last Modified On : 10-16-2019
 // ***********************************************************************
 // <copyright file="PersianMonth.cs"></copyright>

@@ -12,16 +12,9 @@ namespace PersianTools.Jalali
         public override bool CanConvertFrom(ITypeDescriptorContext context,
             Type sourceType)
         {
-
-            if (sourceType == typeof (string))
-            {
-                return true;
-            }
-            if (sourceType == typeof (DateTime))
-            {
-                return true;
-            }
-            return base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string) ||
+                   sourceType == typeof(DateTime) ||
+                   base.CanConvertFrom(context, sourceType);
         }
 
         // Overrides the ConvertFrom method of TypeConverter.

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
-using PersianTools.Enums;
 using Calendar = System.Globalization.Calendar;
 using NumberStyles = System.Globalization.NumberStyles;
 
 namespace PersianTools.Jalali
 {
+    using Enums;
+
     //this attribute enables converting to/from this type in wpf and other designing environments
     [TypeConverter(typeof (PersianDateConverter))]
     public struct PersianDate : IComparable<PersianDate>
@@ -37,6 +38,16 @@ namespace PersianTools.Jalali
             date = dateTime >= minValue ? dateTime : minValue;
         }
 
+        /// <summary>
+        /// Initializes a new instance of the PersianDate structure set to the Persian date
+        /// equivalent to the date and time-of day specified by dateTime and tod parameters.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="tod">time of day</param>
+        public PersianDate(DateTime dateTime, TimeSpan tod) : this(dateTime + tod)
+        {
+        }
+
         #endregion
 
         #region static properties & fields
@@ -56,6 +67,11 @@ namespace PersianTools.Jalali
             get { return new PersianDate(DateTime.Today); }
         }
 
+        public static PersianDate Now
+        {
+            get { return new PersianDate(DateTime.Now); }
+        }
+
         #endregion
 
         #region properties
@@ -65,7 +81,7 @@ namespace PersianTools.Jalali
         /// </summary>
         public int Day
         {
-            get { return calendar.GetDayOfMonth(date); }
+            get { return date > minValue ? calendar.GetDayOfMonth(date) : 1; }
         }
 
         /// <summary>
@@ -73,7 +89,7 @@ namespace PersianTools.Jalali
         /// </summary>
         public int Month
         {
-            get { return calendar.GetMonth(date); }
+            get { return date > minValue ? calendar.GetMonth(date) : 1; }
         }
 
         /// <summary>
@@ -114,6 +130,30 @@ namespace PersianTools.Jalali
         public int DayOfYear
         {
             get { return calendar.GetDayOfYear(date); }
+        }
+
+        /// <summary>
+        /// Gets the hour value represented by this PersianDate instance.
+        /// </summary>
+        public int Hour
+        {
+            get { return date.Hour; }
+        }
+
+        /// <summary>
+        /// Gets the minute value represented by this PersianDate instance.
+        /// </summary>
+        public int Minute
+        {
+            get { return date.Minute; }
+        }
+
+        /// <summary>
+        /// Gets the second value represented by this PersianDate instance.
+        /// </summary>
+        public int Second
+        {
+            get { return date.Second; }
         }
 
         #endregion

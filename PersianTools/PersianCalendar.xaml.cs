@@ -2,12 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using PersianTools.Jalali;
-using CalendarMode = PersianTools.Enums.CalendarMode;
-using PersianMonth = PersianTools.Enums.PersianMonth;
 
 namespace PersianTools
 {
+    using Enums;
+    using Jalali;
+
     [System.ComponentModel.DefaultEvent("SelectedDateChanged")]
     [System.ComponentModel.DefaultProperty("DisplayDate")]
     public partial class PersianCalendar : UserControl
@@ -33,9 +33,9 @@ namespace PersianTools
 
         public static readonly DependencyProperty DisplayModeProperty;
         [System.ComponentModel.Category("Calendar")]
-        public CalendarMode DisplayMode
+        public CalendarNavigation DisplayMode
         {
-            get { return (CalendarMode)GetValue(DisplayModeProperty); }
+            get { return (CalendarNavigation)GetValue(DisplayModeProperty); }
             set { SetValue(DisplayModeProperty, value); }
         }
 
@@ -163,7 +163,7 @@ namespace PersianTools
 
             PropertyMetadata displayModeMetaData = new PropertyMetadata(modeChanged);
             DisplayModeProperty =
-                DependencyProperty.Register("DisplayMode", typeof(CalendarMode), typeof(PersianCalendar), displayModeMetaData);
+                DependencyProperty.Register("DisplayMode", typeof(CalendarNavigation), typeof(PersianCalendar), displayModeMetaData);
 
             PropertyMetadata displayDateMetaData = new PropertyMetadata(PersianDate.Today, modeChanged);
             displayDateMetaData.CoerceValueCallback = coerceDateToBeInRange;
@@ -249,7 +249,7 @@ namespace PersianTools
         static string[] daysOfWeek = new string[] { "ش", "ی", "د", "س", "چ", "پ", "ج" };
         void InitializeMonth()
         {
-            for (int j = 1; j <= 7; j++)
+            for (int j = 0; j < 7; j++)
             {
                 var element = new Label
                 {
@@ -260,15 +260,15 @@ namespace PersianTools
                     Padding = new Thickness(0),
                     FontWeight = FontWeights.SemiBold,
                     Style = (Style)this.FindResource("InsideLabelStyle"),
-                    Content = daysOfWeek[j - 1],
+                    Content = daysOfWeek[j],
                 };
 
                 this.monthUniformGrid.Children.Add(element);
             }
             int tabIndex = 10;
-            for (int i = 2; i <= 7; i++)
+            for (int i = 0; i < 6; i++)
             {
-                for (int j = 1; j <= 7; j++)
+                for (int j = 0; j < 7; j++)
                 {
                     var element = newControl();
                     element.TabIndex = tabIndex++;
@@ -276,10 +276,9 @@ namespace PersianTools
                     //element.FontSize = 11d;
                     element.Click += new RoutedEventHandler(monthModeButton_Click);
                     this.monthUniformGrid.Children.Add(element);
-                    this.monthModeButtons[i - 2, j - 1] = element;
+                    this.monthModeButtons[i, j] = element;
                 }
             }
-
         }
 
         void monthModeButton_Click(object sender, RoutedEventArgs e)
@@ -319,7 +318,7 @@ namespace PersianTools
             Button button = (Button)sender;
             int month = (int)button.Tag;
             this.SetCurrentValue(DisplayDateProperty, new PersianDate(this.DisplayDate.Year, month, 1));
-            this.DisplayMode = CalendarMode.Month;
+            this.DisplayMode = CalendarNavigation.Month;
         }
 
 
@@ -346,7 +345,7 @@ namespace PersianTools
         {
             Button button = (Button)sender;
             this.SetCurrentValue(DisplayDateProperty, new PersianDate((int)button.Tag, 1, 1));
-            this.DisplayMode = CalendarMode.Year;
+            this.DisplayMode = CalendarNavigation.Year;
         }
 
         private void selectedDateCheck(PersianDate? oldValue)
@@ -380,7 +379,7 @@ namespace PersianTools
         }
         private void todayCheck()
         {
-            if (this.DisplayMode == CalendarMode.Month)
+            if (this.DisplayMode == CalendarNavigation.Month)
             {
                 int r, c;
                 monthModeDateToRowColumn(PersianDate.Today, out r, out c);
@@ -418,13 +417,13 @@ namespace PersianTools
         {
             switch (this.DisplayMode)
             {
-                case CalendarMode.Month:
+                case CalendarNavigation.Month:
                     setMonthMode();
                     break;
-                case CalendarMode.Year:
+                case CalendarNavigation.Year:
                     setYearMode();
                     break;
-                case CalendarMode.Decade:
+                case CalendarNavigation.Decade:
                     setDecadeMode();
                     break;
                 default:
@@ -543,18 +542,18 @@ namespace PersianTools
             try
             {
                 PersianDate newDisplayDate = DisplayDate;
-                if (this.DisplayMode == CalendarMode.Month)
+                if (this.DisplayMode == CalendarNavigation.Month)
                 {
                     if (m == 12)
                         newDisplayDate = new PersianDate(y + 1, 1, 1);
                     else
                         newDisplayDate = new PersianDate(y, m + 1, 1);
                 }
-                else if (this.DisplayMode == CalendarMode.Year)
+                else if (this.DisplayMode == CalendarNavigation.Year)
                 {
                     newDisplayDate = new PersianDate(DisplayDate.Year + 1, 1, 1);
                 }
-                else if (this.DisplayMode == CalendarMode.Decade)
+                else if (this.DisplayMode == CalendarNavigation.Decade)
                 {
                     newDisplayDate = new PersianDate(y - y % 10 + 10, 1, 1);
                 }
@@ -576,18 +575,18 @@ namespace PersianTools
             {
                 PersianDate newDisplayDate = DisplayDate;
 
-                if (this.DisplayMode == CalendarMode.Month)
+                if (this.DisplayMode == CalendarNavigation.Month)
                 {
                     if (m == 1)
                         newDisplayDate = new PersianDate(y - 1, 12, PersianDate.DaysInMonth(y - 1, 12));
                     else
                         newDisplayDate = new PersianDate(y, m - 1, PersianDate.DaysInMonth(y, m - 1));
                 }
-                else if (this.DisplayMode == CalendarMode.Year)
+                else if (this.DisplayMode == CalendarNavigation.Year)
                 {
                     newDisplayDate = new PersianDate(y - 1, 12, PersianDate.DaysInMonth(y - 1, 12));
                 }
-                else if (this.DisplayMode == CalendarMode.Decade)
+                else if (this.DisplayMode == CalendarNavigation.Decade)
                 {
                     newDisplayDate = new PersianDate(y - y % 10 - 1, 12, PersianDate.DaysInMonth(y - y % 10 - 1, 12));
                 }
@@ -602,10 +601,10 @@ namespace PersianTools
 
         private void titleButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.DisplayMode == CalendarMode.Month)
-                this.DisplayMode = CalendarMode.Year;
-            else if (this.DisplayMode == CalendarMode.Year)
-                this.DisplayMode = CalendarMode.Decade;
+            if (this.DisplayMode == CalendarNavigation.Month)
+                this.DisplayMode = CalendarNavigation.Year;
+            else if (this.DisplayMode == CalendarNavigation.Year)
+                this.DisplayMode = CalendarNavigation.Decade;
         }
     }
 }

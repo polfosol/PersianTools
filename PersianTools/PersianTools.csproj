@@ -39,7 +39,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Enums\CalendarMode.cs" />
+    <Compile Include="Enums\CalendarNavigation.cs" />
     <Compile Include="Enums\PersianDayOfWeek.cs" />
     <Compile Include="Enums\PersianMonth.cs" />
     <Compile Include="Jalali\CalendarsConverter.cs" />

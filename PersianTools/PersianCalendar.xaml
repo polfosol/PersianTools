@@ -101,12 +101,12 @@
     </ResourceDictionary>
     </UserControl.Resources>
     <Grid MinHeight="120" MinWidth="120" Margin="1">
-        <Rectangle Margin="2" Height="25" Name="borderRectangle" VerticalAlignment="Top" Fill="#FFEAEEF9"/>
-        <Button Name="titleButton" Style="{StaticResource ButtonStyle}" Margin="30,1,30,0"  FlowDirection="RightToLeft" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Focusable="True" Click="titleButton_Click" Height="25" VerticalAlignment="Top" FontWeight="Bold" IsTabStop="True" TabIndex="0">خرداد 1376</Button>
-        <Button Name="previousButton" Style="{StaticResource ButtonStyle}" Height="25" HorizontalAlignment="Right" Margin="0,2,12,0"  VerticalAlignment="Top" Width="23"  Background="Transparent" BorderThickness="0" Padding="0"  FontFamily="Arial" FontSize="14" BorderBrush="Transparent" Click="previousButton_Click" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsTabStop="True" TabIndex="0">►</Button>
-        <Button Name="nextButton" Style="{StaticResource ButtonStyle}" Height="25" HorizontalAlignment="Left" Margin="12,2,0,0" VerticalAlignment="Top" Width="23"  Background="Transparent" BorderThickness="0" Padding="0" FontFamily="Arial" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Transparent"  Click="nextButton_Click" IsTabStop="True" TabIndex="0">◄</Button>
-        <UniformGrid Margin="3,26,3,2" Name="monthUniformGrid" Rows="7" Columns="7"  FlowDirection="RightToLeft"/>
-        <UniformGrid Margin="3,26,3,2" Name="yearUniformGrid"  Columns="3" Rows="4" FlowDirection="RightToLeft"/>
-        <UniformGrid Margin="3,26,3,2" Name="decadeUniformGrid"  Columns="3" Rows="4" FlowDirection="RightToLeft"/>
+        <Rectangle Name="borderRectangle" Margin="1" Height="25" VerticalAlignment="Top" Fill="#FFEAEEF9"/>
+        <Button Name="titleButton" Margin="30,0,30,0" Height="25" Style="{StaticResource ButtonStyle}"  FlowDirection="RightToLeft" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Padding="0" Focusable="True" Click="titleButton_Click" VerticalAlignment="Top" FontWeight="Bold" IsTabStop="True" TabIndex="0">خرداد 1376</Button>
+        <Button Name="previousButton" Margin="0,1,12,0" Height="25" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Right"  VerticalAlignment="Top" Width="23"  Background="Transparent" BorderThickness="0" Padding="0"  FontFamily="Arial" FontSize="14" BorderBrush="Transparent" Click="previousButton_Click" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" IsTabStop="True" TabIndex="0">►</Button>
+        <Button Name="nextButton" Margin="12,1,0,0" Height="25" Style="{StaticResource ButtonStyle}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="23"  Background="Transparent" BorderThickness="0" Padding="0" FontFamily="Arial" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" BorderBrush="Transparent"  Click="nextButton_Click" IsTabStop="True" TabIndex="0">◄</Button>
+        <UniformGrid Margin="1,26,1,2" Name="monthUniformGrid" Rows="7" Columns="7"  FlowDirection="RightToLeft"/>
+        <UniformGrid Margin="1,26,1,2" Name="yearUniformGrid"  Columns="3" Rows="4" FlowDirection="RightToLeft"/>
+        <UniformGrid Margin="1,26,1,2" Name="decadeUniformGrid"  Columns="3" Rows="4" FlowDirection="RightToLeft"/>
     </Grid>
 </UserControl>

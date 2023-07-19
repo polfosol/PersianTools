@@ -13,16 +13,14 @@ namespace PersianTools.Jalali
             object parameter, System.Globalization.CultureInfo culture)
         {
             DateTime? date = value as DateTime?;
-            if (date == null) return null;
-            return new PersianDate(date.Value);
+            return date == null ? default(object) : new PersianDate(date.Value);
         }
 
         public object ConvertBack(object value, Type targetType,
             object parameter, System.Globalization.CultureInfo culture)
         {
             PersianDate? pDate = value as PersianDate?;
-            if (pDate == null) return null;
-            return pDate.Value.ToDateTime();
+            return pDate == null ? default(object) : pDate.Value.ToDateTime();
         }
     }
 }
